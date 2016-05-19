@@ -11,7 +11,10 @@ fi
 pip install . -r requirements.txt
 python setup.py install
 
-useradd qyceilometer
+result=$(grep '^qyceilometer' /etc/passwd | wc -l)
+if [ "$result" = "0" ]; then
+    useradd qyceilometer
+fi
 
 oslo-config-generator --output-file etc/qyceilometer.conf --namespace qyceilometer
 

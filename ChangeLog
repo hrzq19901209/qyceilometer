@@ -1,6 +1,8 @@
 CHANGES
 =======
 
+* fix the api
+* fix the install shell
 * fix some bugs
 * completed the install shell
 * delete something useless
