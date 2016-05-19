@@ -6,8 +6,8 @@ import pymongo
 import datetime
 
 OPTS = [
-    cfg.StrOpt('log_file_day',default='/var/log/ceilometer/qyceilometer-day.log',
-            help=('the log for day collection')),
+    cfg.StrOpt('log_file_day',default='/var/log/qyceilometer/qyceilometer-day.log',
+            help=('(required) the log for day collection')),
 ]
 
 cfg.CONF.register_opts(OPTS, group='logging')

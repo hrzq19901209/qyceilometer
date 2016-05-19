@@ -2,14 +2,13 @@ from qyceilometer.storage.mongo import utils
 from qyceilometer.storage import model
 from oslo_config import cfg
 import logging
-import sys
 
 import pymongo
 import datetime
 
 OPTS = [
-    cfg.StrOpt('log_file_hour', default='/var/log/ceilometer/qyceilometer-hour.log',
-            help=('the log for hour collection')),
+    cfg.StrOpt('log_file_hour', default='/var/log/qyceilometer/qyceilometer-hour.log',
+            help=('(required), the log for hour collection')),
 ]
 
 cfg.CONF.register_opts(OPTS, group='logging')

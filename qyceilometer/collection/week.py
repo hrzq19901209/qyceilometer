@@ -7,12 +7,12 @@ import pymongo
 import datetime
 
 OPTS = [
-    cfg.StrOpt('log_file_week',default='/var/log/ceilometer/qyceilometer-week.log',
-            help=('the log for week collection')),
+    cfg.StrOpt('log_file_week',default='/var/log/qyceilometer/qyceilometer-week.log',
+            help=('(required), the log for week collection')),
 ]
 
 cfg.CONF.register_opts(OPTS, group='logging')
-handler = logging.FileHandler(cfg.CONF.logging.log_file_hour)
+handler = logging.FileHandler(cfg.CONF.logging.log_file_week)
 formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
 handler.setFormatter(formatter)
 LOG = logging.getLogger(__name__)
@@ -20,7 +20,6 @@ LOG.addHandler(handler)
 
 def week_collection():
     LOG.info('week collection started!')
-
     db = utils.ConnectionPool().connect()
     resources = db.resource.find()
     meters = []

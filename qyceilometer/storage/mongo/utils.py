@@ -13,11 +13,11 @@ MONGO_METHODS = set([typ for typ in dir(pymongo.collection.Collection)
 
 OPTS = [
     cfg.IntOpt('max_retries',default=3,
-            help=('the max times try to connect the db')),
+            help=('(required) the max times try to connect the db')),
     cfg.IntOpt('retry_interval',default=3,
-            help=('the interval between retry to connect the db')),
+            help=('(required) the interval between retry to connect the db')),
     cfg.StrOpt('connection',default='',
-            help=('where is the mongodb?')),
+            help=('(required) where is the mongodb?')),
 ]
 
 cfg.CONF.register_opts(OPTS, group='database')

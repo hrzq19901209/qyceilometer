@@ -1,6 +1,6 @@
 from qyceilometer.collection import hour as hour_collection
-from qyceilometer.collection import day
-from qyceilometer.collection import week
+from qyceilometer.collection import day as day_collection
+from qyceilometer.collection import week as week_collection
 from qyceilometer import service
 import datetime
 import time
@@ -19,7 +19,7 @@ def hour():
 def day():
 	service.prepare_service()
 	last = datetime.datetime.now().day
-	day.day_collection()
+	day_collection.day_collection()
 	while True:
 		current = datetime.datetime.now().day
 		if current != last:
@@ -31,7 +31,7 @@ def day():
 def week():
 	service.prepare_service()
 	last = time.strftime('%W')
-	week.week_collection()
+	week_collection.week_collection()
 	while True:
 		current = time.strftime('%W')
 		if current != last:

@@ -1,8 +1,0 @@
-[console_scripts]
-qyceilometer.day = qyceilometer.cmd.api:day
-qyceilometer.hour = qyceilometer.cmd.api:hour
-qyceilometer.week = qyceilometer.cmd.api:week
-
-[oslo.config.opts]
-wwceilometer = qyceilometer.opts:list_opts
-

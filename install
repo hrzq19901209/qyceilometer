@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e
+user=$(whoami)
+if [ "$user" != "root" ]; then
+    echo ""
+    echo 'ERROR: you have to run install command as root, such as "sudo ./install"'
+    echo ""
+    exit 1
+fi
+    
+python setup.py bdist_wheel
+python setup.py install
+
+id -u qyceilometer >/dev/null 2>&1
+if [ "$?" != "0" ]; then
+    useradd qyceilometer
+fi
+
+chown -R qyceilometer:qyceilometer /var/log/qyceilometer
+
+oslo-config-generator --output-file etc/qyceilometer.conf --namespace qyceilometer
+
+[ -e /etc/qyceilometer ] || mkdir /etc/qyceilometer
+[ -e /etc/qyceilometer/qyceilometer.conf ] || cp etc/qyceilometer.conf /etc/qyceilometer
+
+cp qyceilometer-hour.conf /etc/init
+cp qyceilometer-day.conf /etc/init
+cp qyceilometer-week.conf /etc/init
+
+echo ""
+echo "--------------------------------------------------------------------------------------------------------"
+echo "	install completed! you must fill the config file in /etc/qyceilometer/qyceilometer.conf first"
+echo "	then, you can start the collection task by the following commands"
+echo "	sudo service qyceilometer-hour start"
+echo "	sudo service qyceilometer-day start"
+echo "	sudo service qyceilometer-week start"
+echo "--------------------------------------------------------------------------------------------------------"
