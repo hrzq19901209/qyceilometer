@@ -6,8 +6,7 @@ import datetime
 import time
 def hour():
 	service.prepare_service()
-	hour_collection.hour_collection()
-
+	last = datetime.datetime.now().hour
 	while True:
 		current = datetime.datetime.now().hour
 		if current != last:
@@ -19,7 +18,6 @@ def hour():
 def day():
 	service.prepare_service()
 	last = datetime.datetime.now().day
-	day_collection.day_collection()
 	while True:
 		current = datetime.datetime.now().day
 		if current != last:
@@ -31,7 +29,6 @@ def day():
 def week():
 	service.prepare_service()
 	last = time.strftime('%W')
-	week_collection.week_collection()
 	while True:
 		current = time.strftime('%W')
 		if current != last:
