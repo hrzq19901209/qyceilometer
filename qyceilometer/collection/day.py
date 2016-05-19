@@ -12,12 +12,14 @@ OPTS = [
 
 cfg.CONF.register_opts(OPTS, group='logging')
 
-handler = logging.FileHandler(cfg.CONF.logging.log_file_day)
-formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-handler.setFormatter(formatter)
 LOG = logging.getLogger(__name__)
-LOG.addHandler(handler)
+
 def day_collection():
+    handler = logging.FileHandler(cfg.CONF.logging.log_file_day)
+    formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
+    handler.setFormatter(formatter)
+    LOG.addHandler(handler)
+
     LOG.info('day collection started!')
 
     db = utils.ConnectionPool().connect()

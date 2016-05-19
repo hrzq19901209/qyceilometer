@@ -12,13 +12,14 @@ OPTS = [
 ]
 
 cfg.CONF.register_opts(OPTS, group='logging')
-handler = logging.FileHandler(cfg.CONF.logging.log_file_hour)
-formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-handler.setFormatter(formatter)
 LOG = logging.getLogger(__name__)
-LOG.addHandler(handler)
 
 def hour_collection():
+    handler = logging.FileHandler(cfg.CONF.logging.log_file_hour)
+    formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
+    handler.setFormatter(formatter)
+    LOG.addHandler(handler)
+
     LOG.info('hour collection started!')
 
     db = utils.ConnectionPool().connect()

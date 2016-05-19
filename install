@@ -13,10 +13,9 @@ python setup.py install
 
 id -u qyceilometer >/dev/null 2>&1
 if [ "$?" != "0" ]; then
+    echo "create user"
     useradd qyceilometer
 fi
-
-chown -R qyceilometer:qyceilometer /var/log/qyceilometer
 
 oslo-config-generator --output-file etc/qyceilometer.conf --namespace qyceilometer
 
