@@ -28,13 +28,14 @@ def day_collection():
         d['counter_name'] = meter.name
         d['resource_id'] = meter.resource_id
         d['timestamp'] = {'$lt': end_time_stamp,'$gte': start_time_stamp}
-        sample_list = db.hour.find(d)
+        sample_list = db.hour.find(d).sort("timestamp",pymongo.DESCENDING)
         if getattr(meter, 'type') == 'cumulative' or getattr(meter, 'type') == 'delta':
             volume = 0
             count = 0
             for sample in sample_list:
                 volume =  sample['counter_volume']
                 count = count + 1
+                break
             if count != 0:
                 m = model.Sample(start_time_stamp, meter.name, meter.type, meter.unit, volume, meter.user_id, meter.project_id, meter.resource_id)
                 db.day.insert(m.as_dict())
@@ -43,10 +44,11 @@ def day_collection():
             volume = 0
             count = 0
             for sample in sample_list:
-                volume =  volume + sample['counter_volume']
+                v = sample['counter_volume']
+                if v > volume:
+                    volume = v
                 count = count + 1
             if count != 0:
-                volume = volume/count
                 m = model.Sample(start_time_stamp, meter.name, meter.type, meter.unit, volume, meter.user_id, meter.project_id, meter.resource_id)
                 db.day.insert(m.as_dict())
     LOG.info('day collection completed')

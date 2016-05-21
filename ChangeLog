@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+* fix a bug
+* fix log
+* fix time
+* fix a bug in /cmd/api.py. The bug causes the failure of day and week data collection
+* fix install shell
+* fix the user creat
 * fix the api
 * fix the install shell
 * fix some bugs

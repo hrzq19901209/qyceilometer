@@ -8,7 +8,7 @@ if [ "$user" != "root" ]; then
     exit 1
 fi
 
-pip install -r requirements.txt
+#pip install -r requirements.txt
 python setup.py install
 
 result=$(grep '^qyceilometer' /etc/passwd | wc -l)
@@ -20,6 +20,11 @@ oslo-config-generator --output-file etc/qyceilometer.conf --namespace qyceilomet
 
 [ -e /etc/qyceilometer ] || mkdir /etc/qyceilometer
 [ -e /etc/qyceilometer/qyceilometer.conf ] || cp etc/qyceilometer.conf /etc/qyceilometer
+
+[ -e /var/log/qyceilometer ] || mkdir /var/log/qyceilometer
+[ -e /var/log/qyceilometer/qyceilometer.log ] || touch /var/log/qyceilometer/qyceilometer.log
+
+chown -R qyceilometer:qyceilometer /var/log/qyceilometer
 
 cp qyceilometer-hour.conf /etc/init
 cp qyceilometer-day.conf /etc/init

@@ -1,0 +1,36 @@
+.
+|-- AUTHORS
+|-- ChangeLog
+|-- README.rst
+|-- architecture.txt
+|-- etc
+|   `-- qyceilometer.conf
+|-- generate-config-file
+|-- install
+|-- qyceilometer
+|   |-- __init__.py
+|   |-- cmd
+|   |   |-- __init__.py
+|   |   `-- api.py
+|   |-- collection
+|   |   |-- __init__.py
+|   |   |-- day.py
+|   |   |-- hour.py
+|   |   `-- week.py
+|   |-- opts.py
+|   |-- service.py
+|   `-- storage
+|       |-- __init__.py
+|       |-- base.py
+|       |-- model.py
+|       `-- mongo
+|           |-- __init__.py
+|           `-- utils.py
+|-- qyceilometer-day.conf
+|-- qyceilometer-hour.conf
+|-- qyceilometer-week.conf
+|-- requirements.txt
+|-- setup.cfg
+`-- setup.py
+
+6 directories, 27 files
