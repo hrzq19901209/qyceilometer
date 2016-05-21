@@ -22,7 +22,7 @@ def day():
 		current = datetime.datetime.now().day
 		if current != last:
 			last = current
-			day.day_collection()
+			day_collection.day_collection()
 		
 		time.sleep(60*60)
 
@@ -33,6 +33,6 @@ def week():
 		current = time.strftime('%W')
 		if current != last:
 			last = current
-			week.week_collection()
+			week_collection.week_collection()
 		
 		time.sleep(60*60*24)
