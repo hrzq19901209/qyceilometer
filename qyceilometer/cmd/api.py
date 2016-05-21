@@ -8,7 +8,7 @@ def hour():
 	service.prepare_service()
 	last = datetime.datetime.now().hour
 	while True:
-		current = datetime.datetime.now().hour
+		current = datetime.datetime.utcnow().hour
 		if current != last:
 			last = current
 			hour_collection.hour_collection()

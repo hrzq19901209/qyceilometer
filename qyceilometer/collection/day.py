@@ -4,6 +4,7 @@ from oslo_config import cfg
 import logging
 import pymongo
 import datetime
+import time
 
 OPTS = [
     cfg.StrOpt('log_file_day',default='/var/log/qyceilometer/qyceilometer-day.log',
@@ -30,7 +31,8 @@ def day_collection():
             m = model.Meter(meter['counter_name'],meter['counter_type'],meter['counter_unit'],resource['_id'],resource['project_id'],resource['user_id'])
             meters.append(m)
 
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now()
+
     end_time_stamp = datetime.datetime(now.year,now.month,now.day,0,0,0)
     start_time_stamp = end_time_stamp - datetime.timedelta(hours=24)
 

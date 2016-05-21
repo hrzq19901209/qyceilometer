@@ -30,7 +30,7 @@ def week_collection():
             m = model.Meter(meter['counter_name'],meter['counter_type'],meter['counter_unit'],resource['_id'],resource['project_id'],resource['user_id'])
             meters.append(m)
 
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now()
     now = now - datetime.timedelta(now.weekday())
     end_time_stamp = datetime.datetime(now.year,now.month,now.day,0,0,0)
     start_time_stamp = end_time_stamp - datetime.timedelta(days=7)

@@ -5,6 +5,7 @@ import logging
 
 import pymongo
 import datetime
+import time
 
 OPTS = [
     cfg.StrOpt('log_file_hour', default='/var/log/qyceilometer/qyceilometer-hour.log',
@@ -30,11 +31,11 @@ def hour_collection():
             m = model.Meter(meter['counter_name'],meter['counter_type'],meter['counter_unit'],resource['_id'],resource['project_id'],resource['user_id'])
             meters.append(m)
 
-    today = datetime.date.today()-datetime.timedelta(hours=8)
     now = datetime.datetime.utcnow()
-    start_time_stamp = datetime.datetime.combine(today, datetime.time(now.hour-1))
-    end_time_stamp = datetime.datetime.combine(today, datetime.time(now.hour))
-
+    end_time_stamp = datetime.datetime(now.year,now.month,now.day,now.hour)
+    start_time_stamp = end_time_stamp - datetime.timedelta(hours=1)
+    insert_time = start_time_stamp - datetime.timedelta(hours=time.timezone/3600)
+    
     for meter in meters:
         d = {}
         d['counter_name'] = meter.name
@@ -48,7 +49,7 @@ def hour_collection():
                 volume =  sample['counter_volume']
                 count = count + 1
             if count != 0:
-                m = model.Sample(start_time_stamp, meter.name, meter.type, meter.unit, volume, meter.user_id, meter.project_id, meter.resource_id)
+                m = model.Sample(insert_time, meter.name, meter.type, meter.unit, volume, meter.user_id, meter.project_id, meter.resource_id)
                 db.hour.insert(m.as_dict())
 
         if getattr(meter, 'type') == 'gauge':
@@ -59,6 +60,6 @@ def hour_collection():
                 count = count + 1
             if count != 0:
                 volume = volume/count
-                m = model.Sample(start_time_stamp, meter.name, meter.type, meter.unit, volume, meter.user_id, meter.project_id, meter.resource_id)
+                m = model.Sample(insert_time, meter.name, meter.type, meter.unit, volume, meter.user_id, meter.project_id, meter.resource_id)
                 db.hour.insert(m.as_dict())
     LOG.info('hour collection completed')
