@@ -1,26 +1,13 @@
 from qyceilometer.storage.mongo import utils
 from qyceilometer.storage import model
-from oslo_config import cfg
 import logging
 import pymongo
 import datetime
 import time
 
-OPTS = [
-    cfg.StrOpt('log_file_day',default='/var/log/qyceilometer/qyceilometer-day.log',
-            help=('(required) the log for day collection')),
-]
-
-cfg.CONF.register_opts(OPTS, group='logging')
-
 LOG = logging.getLogger(__name__)
 
 def day_collection():
-    handler = logging.FileHandler(cfg.CONF.logging.log_file_day)
-    formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-    handler.setFormatter(formatter)
-    LOG.addHandler(handler)
-
     LOG.info('day collection started!')
 
     db = utils.ConnectionPool().connect()

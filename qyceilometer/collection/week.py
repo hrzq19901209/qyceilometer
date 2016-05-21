@@ -1,25 +1,13 @@
 from qyceilometer.storage.mongo import utils
 from qyceilometer.storage import model
-from oslo_config import cfg
 import logging
 
 import pymongo
 import datetime
 
-OPTS = [
-    cfg.StrOpt('log_file_week',default='/var/log/qyceilometer/qyceilometer-week.log',
-            help=('(required), the log for week collection')),
-]
-
-cfg.CONF.register_opts(OPTS, group='logging')
 LOG = logging.getLogger(__name__)
 
 def week_collection():
-    handler = logging.FileHandler(cfg.CONF.logging.log_file_week)
-    formatter = logging.Formatter('%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s')
-    handler.setFormatter(formatter)
-    LOG.addHandler(handler)
-
     LOG.info('week collection started!')
 
     db = utils.ConnectionPool().connect()

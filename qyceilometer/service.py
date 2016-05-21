@@ -18,7 +18,7 @@ def prepare_service():
 
 	logging.basicConfig(format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
 	 	datefmt='%a, %d %b %Y %H:%M:%S',
-	 	level=logging.DEBUG, # if cfg.CONF.logging.debug else logging.ERROR,
+	 	level=logging.DEBUG if cfg.CONF.logging.debug else logging.INFO,
 	 	filename=cfg.CONF.logging.log_file,
 	 	filemode='a')
 		
